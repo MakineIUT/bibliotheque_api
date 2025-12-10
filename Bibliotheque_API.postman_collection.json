@@ -1,0 +1,539 @@
+{
+  "info": {
+    "name": "Bibliothèque API",
+    "description": "Collection complète pour tester l'API de gestion de bibliothèque",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:8080",
+      "type": "string"
+    },
+    {
+      "key": "apiKey",
+      "value": "secret-api-key-2025",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "Authors",
+      "item": [
+        {
+          "name": "Get All Authors",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/authors",
+              "host": ["{{baseUrl}}"],
+              "path": ["authors"]
+            },
+            "description": "Récupère la liste de tous les auteurs"
+          }
+        },
+        {
+          "name": "Get Author By ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/authors/1",
+              "host": ["{{baseUrl}}"],
+              "path": ["authors", "1"]
+            },
+            "description": "Récupère un auteur spécifique par son ID"
+          }
+        },
+        {
+          "name": "Create Author",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "X-API-KEY",
+                "value": "{{apiKey}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"firstName\": \"Victor\",\n  \"lastName\": \"Hugo\",\n  \"birthYear\": 1802\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/authors",
+              "host": ["{{baseUrl}}"],
+              "path": ["authors"]
+            },
+            "description": "Crée un nouvel auteur (nécessite X-API-KEY)"
+          }
+        },
+        {
+          "name": "Update Author",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "X-API-KEY",
+                "value": "{{apiKey}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"firstName\": \"Victor\",\n  \"lastName\": \"Hugo\",\n  \"birthYear\": 1802\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/authors/1",
+              "host": ["{{baseUrl}}"],
+              "path": ["authors", "1"]
+            },
+            "description": "Modifie un auteur existant (nécessite X-API-KEY)"
+          }
+        },
+        {
+          "name": "Delete Author",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "X-API-KEY",
+                "value": "{{apiKey}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/authors/1",
+              "host": ["{{baseUrl}}"],
+              "path": ["authors", "1"]
+            },
+            "description": "Supprime un auteur (nécessite X-API-KEY)"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Books",
+      "item": [
+        {
+          "name": "Get All Books",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/books?page=0&size=10",
+              "host": ["{{baseUrl}}"],
+              "path": ["books"],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "0"
+                },
+                {
+                  "key": "size",
+                  "value": "10"
+                }
+              ]
+            },
+            "description": "Récupère tous les livres avec pagination"
+          }
+        },
+        {
+          "name": "Get Books By Title",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/books?title=Misérables",
+              "host": ["{{baseUrl}}"],
+              "path": ["books"],
+              "query": [
+                {
+                  "key": "title",
+                  "value": "Misérables"
+                }
+              ]
+            },
+            "description": "Filtre les livres par titre (recherche partielle)"
+          }
+        },
+        {
+          "name": "Get Books By Author",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/books?authorId=1",
+              "host": ["{{baseUrl}}"],
+              "path": ["books"],
+              "query": [
+                {
+                  "key": "authorId",
+                  "value": "1"
+                }
+              ]
+            },
+            "description": "Filtre les livres par ID d'auteur"
+          }
+        },
+        {
+          "name": "Get Books By Category",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/books?category=NOVEL",
+              "host": ["{{baseUrl}}"],
+              "path": ["books"],
+              "query": [
+                {
+                  "key": "category",
+                  "value": "NOVEL"
+                }
+              ]
+            },
+            "description": "Filtre les livres par catégorie (NOVEL, ESSAY, POETRY, OTHER)"
+          }
+        },
+        {
+          "name": "Get Books By Year Range",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/books?yearFrom=1800&yearTo=1900",
+              "host": ["{{baseUrl}}"],
+              "path": ["books"],
+              "query": [
+                {
+                  "key": "yearFrom",
+                  "value": "1800"
+                },
+                {
+                  "key": "yearTo",
+                  "value": "1900"
+                }
+              ]
+            },
+            "description": "Filtre les livres par plage d'années"
+          }
+        },
+        {
+          "name": "Get Books Sorted",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/books?sort=year,desc",
+              "host": ["{{baseUrl}}"],
+              "path": ["books"],
+              "query": [
+                {
+                  "key": "sort",
+                  "value": "year,desc"
+                }
+              ]
+            },
+            "description": "Récupère les livres triés par année décroissant"
+          }
+        },
+        {
+          "name": "Get Books With Multiple Filters",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/books?category=NOVEL&yearFrom=1800&yearTo=1900&page=0&size=5&sort=year,desc",
+              "host": ["{{baseUrl}}"],
+              "path": ["books"],
+              "query": [
+                {
+                  "key": "category",
+                  "value": "NOVEL"
+                },
+                {
+                  "key": "yearFrom",
+                  "value": "1800"
+                },
+                {
+                  "key": "yearTo",
+                  "value": "1900"
+                },
+                {
+                  "key": "page",
+                  "value": "0"
+                },
+                {
+                  "key": "size",
+                  "value": "5"
+                },
+                {
+                  "key": "sort",
+                  "value": "year,desc"
+                }
+              ]
+            },
+            "description": "Exemple de combinaison de plusieurs filtres"
+          }
+        },
+        {
+          "name": "Get Book By ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/books/1",
+              "host": ["{{baseUrl}}"],
+              "path": ["books", "1"]
+            },
+            "description": "Récupère un livre spécifique par son ID"
+          }
+        },
+        {
+          "name": "Create Book",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "X-API-KEY",
+                "value": "{{apiKey}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"Les Misérables\",\n  \"isbn\": \"978-2070409228\",\n  \"year\": 1862,\n  \"category\": \"NOVEL\",\n  \"authorId\": 1\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/books",
+              "host": ["{{baseUrl}}"],
+              "path": ["books"]
+            },
+            "description": "Crée un nouveau livre (nécessite X-API-KEY)"
+          }
+        },
+        {
+          "name": "Update Book",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "X-API-KEY",
+                "value": "{{apiKey}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"Les Misérables (Édition intégrale)\",\n  \"isbn\": \"978-2070409228\",\n  \"year\": 1862,\n  \"category\": \"NOVEL\",\n  \"authorId\": 1\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/books/1",
+              "host": ["{{baseUrl}}"],
+              "path": ["books", "1"]
+            },
+            "description": "Modifie un livre existant (nécessite X-API-KEY)"
+          }
+        },
+        {
+          "name": "Delete Book",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "X-API-KEY",
+                "value": "{{apiKey}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/books/1",
+              "host": ["{{baseUrl}}"],
+              "path": ["books", "1"]
+            },
+            "description": "Supprime un livre (nécessite X-API-KEY)"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Statistics",
+      "item": [
+        {
+          "name": "Get Books Per Category",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/stats/books-per-category",
+              "host": ["{{baseUrl}}"],
+              "path": ["stats", "books-per-category"]
+            },
+            "description": "Récupère le nombre de livres par catégorie"
+          }
+        },
+        {
+          "name": "Get Top Authors (Default)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/stats/top-authors",
+              "host": ["{{baseUrl}}"],
+              "path": ["stats", "top-authors"]
+            },
+            "description": "Récupère les top 3 auteurs (par défaut)"
+          }
+        },
+        {
+          "name": "Get Top Authors (Custom Limit)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/stats/top-authors?limit=5",
+              "host": ["{{baseUrl}}"],
+              "path": ["stats", "top-authors"],
+              "query": [
+                {
+                  "key": "limit",
+                  "value": "5"
+                }
+              ]
+            },
+            "description": "Récupère les top N auteurs (limite personnalisée)"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Test Cases",
+      "item": [
+        {
+          "name": "Create Multiple Authors",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "X-API-KEY",
+                "value": "{{apiKey}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"firstName\": \"Albert\",\n  \"lastName\": \"Camus\",\n  \"birthYear\": 1913\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/authors",
+              "host": ["{{baseUrl}}"],
+              "path": ["authors"]
+            },
+            "description": "Exemple de création d'auteur - Camus"
+          }
+        },
+        {
+          "name": "Create Book - Poetry",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "X-API-KEY",
+                "value": "{{apiKey}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"Les Fleurs du Mal\",\n  \"isbn\": \"978-2253004226\",\n  \"year\": 1857,\n  \"category\": \"POETRY\",\n  \"authorId\": 1\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/books",
+              "host": ["{{baseUrl}}"],
+              "path": ["books"]
+            },
+            "description": "Création d'un livre de poésie"
+          }
+        },
+        {
+          "name": "Invalid ISBN Format",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "X-API-KEY",
+                "value": "{{apiKey}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"Test Book\",\n  \"isbn\": \"invalid-isbn\",\n  \"year\": 2020,\n  \"category\": \"NOVEL\",\n  \"authorId\": 1\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/books",
+              "host": ["{{baseUrl}}"],
+              "path": ["books"]
+            },
+            "description": "Test de validation - ISBN invalide (devrait échouer)"
+          }
+        },
+        {
+          "name": "Missing API Key",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"firstName\": \"Test\",\n  \"lastName\": \"Author\",\n  \"birthYear\": 2000\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/authors",
+              "host": ["{{baseUrl}}"],
+              "path": ["authors"]
+            },
+            "description": "Test de sécurité - Requête sans API key (devrait échouer)"
+          }
+        },
+        {
+          "name": "Author Not Found",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/authors/999",
+              "host": ["{{baseUrl}}"],
+              "path": ["authors", "999"]
+            },
+            "description": "Test d'erreur 404 - Auteur inexistant"
+          }
+        }
+      ]
+    }
+  ]
+}
